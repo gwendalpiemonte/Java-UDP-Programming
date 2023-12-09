@@ -48,9 +48,22 @@ docker compose up -d
 ```
 
 ## What are your conclusions to the following questions?
-- What messages do the unicast receivers receive? Why?
-- What messages do the broadcast receivers receive? Why?
-- What messages do the multicast receivers receive? Why?
-- What are the differences between the outputs of the emitters and receivers when running them with Docker Compose and when running them manually?
+### Unicast Receivers:   
+- **Messages Received:** Unicast receivers will only receive messages explicitly directed to them. They won't receive broadcast or multicast messages.
+- **Reason:** Unicast messages are targeted and sent to specific receivers by their addresses, ensuring they're the only ones to receive those messages.
+
+### Broadcast Receivers:   
+- **Messages Received:** Broadcast receivers will receive messages sent to all devices within the same network.
+- **Reason:** Broadcast messages are sent to all devices within the network, hence the receivers on that network receive the broadcasted messages.
+
+### Multicast Receivers:   
+- **Messages Received:** Multicast receivers will receive messages sent to a specific multicast group address.
+- **Reason:** Multicast messages are sent to a designated group of receivers who have subscribed to that multicast address. Only those receivers get the messages.
+
+### Differences between Docker Compose and Manual Execution:   
+- **Message Distribution:** When running with Docker Compose, containers are isolated within networks, ensuring broadcast messages don't interfere with other containers outside the network. In manual execution, without proper network configurations, messages may impact all devices within the same local network, potentially causing unintended interference.
+- **Control and Isolation:** Docker Compose allows controlled network isolation, preventing unintended message receptions by unrelated containers. In manual execution, ensuring such isolation and control would require explicit network configurations, which might not be as straightforward or automated as with Docker Compose.
 
 ## How and why did the network helped for the broadcast emitters and receivers?
+By placing the broadcast emitters and receivers in their own network, Docker confines their messages. 
+This means their broadcasts are contained within that network and can't interfere with or be received by other containers outside it.
