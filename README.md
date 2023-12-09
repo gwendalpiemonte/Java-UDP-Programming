@@ -46,3 +46,9 @@ docker push ghcr.io/gwendalpiemonte/java-udp-programming
 ```shell
 docker compose up -d
 ```
+
+## What are your conclusions to the following questions?
+- What messages do the unicast receivers receive? Why?
+- What messages do the broadcast receivers receive? Why?
+- What messages do the multicast receivers receive? Why?
+- What are the differences between the outputs of the emitters and receivers when running them with Docker Compose and when running them manually?
