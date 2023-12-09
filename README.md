@@ -18,11 +18,6 @@ java -jar java-udp-programming-1.0-SNAPSHOT.jar multicast-emitter --delay=10 --f
 java -jar java-udp-programming-1.0-SNAPSHOT.jar multicast-receiver --port=9878 --host=239.1.1.1 --interface=wlp0s20f3
 ```
 
-## What are your conclusions to the following questions?
-- What messages do the unicast receiver receives? Why?
-- What messages do the broadcast receiver receives? Why?
-- What messages do the multicast receiver receives? Why?
-
 ## Which command(s) did you use to build the Docker image?
 ```shell
 docker build -t java-udp-programming .
