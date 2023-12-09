@@ -1,31 +1,39 @@
+networks:
+  my-isolated-network:
+    name: my-isolated-network-name
+
 services:
+
   unicast-emitter:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - unicast-emitter
-      - --host=unicast-receiver-1
-      - --port=9876
       - --delay=0
       - --frequency=5000
+      - --host=unicast-receiver-1
+      - --port=9876
 
   broadcast-emitter:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - broadcast-emitter
-      - --host=255.255.255.255
-      - --port=9876
       - --delay=5000
       - --frequency=30000
+      - --host=255.255.255.255
+      - --port=9876
+    networks:
+    - my-isolated-network
 
   multicast-emitter:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - multicast-emitter
-      - --interface=eth0
-      - --host=239.1.1.1
-      - --port=9876
       - --delay=10000
       - --frequency=15000
+      - --host=239.1.1.1
+      - --port=9876
+      - --interface=eth0
+
 
 
   unicast-receiver-1:
@@ -40,42 +48,45 @@ services:
       - unicast-receiver
       - --port=9876
 
+
   broadcast-receiver-1:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - broadcast-receiver
       - --port=9876
+    networks:
+      - my-isolated-network
 
   broadcast-receiver-2:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - broadcast-receiver
       - --port=9876
+    networks:
+      - my-isolated-network
+
 
   multicast-receiver-1:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
-      - java
-      - -jar
-      - java-udp-programming-1.0-SNAPSHOT.jar
       - multicast-receiver
-      - --interface=eth0
       - --host=239.1.1.1
       - --port=9876
-
+      - --interface=eth0
 
   multicast-receiver-2:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - multicast-receiver
-      - --interface=eth0
       - --host=239.1.1.1
       - --port=9876
+      - --interface=eth0
 
   multicast-receiver-3:
     image: ghcr.io/gwendalpiemonte/java-udp-programming
     command:
       - multicast-receiver
-      - --interface=eth0
       - --host=239.1.1.2
       - --port=9876
+      - --interface=eth0
+
